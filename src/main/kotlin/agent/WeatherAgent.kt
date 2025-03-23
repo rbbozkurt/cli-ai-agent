@@ -9,6 +9,7 @@ import com.rbbozkurt.tool.WeatherTool
  * This implementation supports only weather-related queries.
  */
 class WeatherAgent(private val toolRegistry: ToolRegistry) : Agent {
+    override val name: String = "weather"
 
     /**
      * Processes weather-related requests by parsing the user input,
