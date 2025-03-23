@@ -2,13 +2,12 @@ package com.rbbozkurt.chat
 
 import com.rbbozkurt.agent.WeatherAgent
 
-class AIWeatherChat(private val agent: WeatherAgent) {
+/**
+ * A CLI chat implementation for interacting with the WeatherAgent.
+ */
+class AIWeatherChat(private val agent: WeatherAgent) : Chat {
 
-    /**
-     * Starts the interactive CLI chat session.
-     * Users can enter weather queries, and the agent processes each request independently.
-     */
-    fun start() {
+    override fun start() {
         println("🌍 AIWeatherChat - Your personal weather assistant")
         println("Ask me about the weather! (Type 'exit' to quit)")
 
@@ -17,12 +16,16 @@ class AIWeatherChat(private val agent: WeatherAgent) {
             val userInput = readlnOrNull()?.trim() ?: ""
 
             if (userInput.equals("exit", ignoreCase = true)) {
-                println("Goodbye! 👋")
+                end()
                 break
             }
 
             val response = agent.processRequest(userInput)
             println(response)
         }
+    }
+
+    override fun end() {
+        println("Goodbye! 👋")
     }
 }
