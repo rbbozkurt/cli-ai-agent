@@ -1,11 +1,12 @@
 package com.rbbozkurt.chat
 
+import com.rbbozkurt.agent.Agent
 import com.rbbozkurt.agent.WeatherAgent
 
 /**
  * A CLI chat implementation for interacting with the WeatherAgent.
  */
-class AIWeatherChat(private val agent: WeatherAgent) : Chat {
+class AIWeatherChat(private val agent: Agent) : Chat {
 
     override fun start() {
         println("🌍 AIWeatherChat - Your personal weather assistant")

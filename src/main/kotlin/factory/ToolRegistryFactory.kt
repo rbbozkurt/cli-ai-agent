@@ -1,16 +1,17 @@
 // File: factory/ToolRegistryFactory.kt
 package com.rbbozkurt.factory
 
+import com.rbbozkurt.config.ToolRegistryConfig
 import com.rbbozkurt.tool.Tool
 import com.rbbozkurt.tool.ToolRegistry
 import com.rbbozkurt.tool.WeatherTool
 
 object ToolRegistryFactory {
 
-    fun create(toolNames: List<String>): ToolRegistry {
+    fun create(toolRegistryConfig : ToolRegistryConfig): ToolRegistry {
         val registry = ToolRegistry()
 
-        toolNames.forEach { name ->
+        toolRegistryConfig.tools.forEach { name ->
             val tool = createTool(name)
             if (tool != null) {
                 registry.register(tool)

@@ -1,0 +1,6 @@
+{
+  "agentName": "weather",
+  "toolRegistry": {
+    "tools": ["weather"]
+  }
+}

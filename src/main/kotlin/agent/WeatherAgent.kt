@@ -19,7 +19,8 @@ class WeatherAgent(private val toolRegistry: ToolRegistry) : Agent {
      * @return The result of the processed request or an error message.
      */
     override fun processRequest(request: String): String {
-        val pattern = Regex("""Determine the temperature in (.+?) in (\d+ (minute|minutes|hour|hours|day|days))""")
+        val pattern = Regex("""Determine the temperature in (.+?) in ((?:\d+|a|an) (?:minute|minutes|hour|hours|day|days))""", RegexOption.IGNORE_CASE)
+
         val matchResult = pattern.matchEntire(request)
 
         if (matchResult != null) {
