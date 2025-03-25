@@ -19,12 +19,20 @@ class WeatherAgent(private val toolRegistry: ToolRegistry) : Agent {
      * @return The result of the processed request or an error message.
      */
     override fun processRequest(request: String): String {
-        val pattern = Regex("""Determine the temperature in (.+?) in ((?:\d+|a|an) (?:minute|minutes|hour|hours|day|days))""", RegexOption.IGNORE_CASE)
+        val pattern = Regex(
+            """Determine the temperature in (.+?) in ((?:\d+|a|an) (?:minute|minutes|hour|hours|day|days|week|weeks|month|months|year|years))\.?$""",
+            RegexOption.IGNORE_CASE
+        )
 
         val matchResult = pattern.matchEntire(request)
 
         if (matchResult != null) {
             val (city, time) = matchResult.destructured
+
+            // Handle unsupported long-range time units
+            if (time.contains("month", ignoreCase = true) || time.contains("year", ignoreCase = true)) {
+                return "😂 I don't have a time machine to predict $time. Try something like 'in 30 minutes', 'in 2 hours', or 'in 3 days'."
+            }
 
             val tool = toolRegistry.getTool("weather")
             if (tool is WeatherTool) {
@@ -40,4 +48,5 @@ class WeatherAgent(private val toolRegistry: ToolRegistry) : Agent {
 
         return "I can only process requests like: 'Determine the temperature in <city> in <time>'."
     }
+
 }
